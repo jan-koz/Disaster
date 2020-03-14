@@ -56,8 +56,7 @@ public class Grid : MonoBehaviour
     }
 
     void CreateGrid()
-    {
-        
+    {        
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)

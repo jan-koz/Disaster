@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //playerPrefab.transform.position
         Move();
     }
 
@@ -29,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            playerPositon = new Vector3(playerPrefab.transform.position.x, playerPrefab.transform.position.y,playerPositon.z);
+            playerPositon = new Vector3(playerPrefab.transform.position.x, playerPrefab.transform.position.y, playerPrefab.transform.position.z);
             if(Physics.Raycast(ray,out hit))
             {
                 newPosition = hit.collider.gameObject.transform.position;
@@ -38,9 +37,8 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log(newX);
                 Debug.Log(newZ);
 
-                if(newX <= gridMeasures.hexWidth || newZ <= gridMeasures.hexHeight)
+                if(newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f)
                 {
-
                     Vector3 pos = newPosition;
                     pos.y = 0.5f;
                     transform.position = pos;
