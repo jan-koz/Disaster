@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public static int actions = 5;
     public int capacity = 5;
+    public int maxWood;
 
 
     public static int getActions()

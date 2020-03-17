@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log(newX);
                     Debug.Log(newZ);
 
-                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f)
+                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f )
                     {
                         Vector3 pos = newPosition;
                         pos.y = 0.5f;
