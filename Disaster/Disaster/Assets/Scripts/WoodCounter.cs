@@ -5,17 +5,16 @@ using TMPro;
 
 public class WoodCounter : MonoBehaviour
 {
-    private TextMeshProUGUI textMeshW;
+    public TextMeshProUGUI textMeshW;
     public static int countWood;
     void Start()
     {
-        textMeshW = FindObjectOfType<TextMeshProUGUI>();
         countWood = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        textMeshW.text = countWood.ToString();
+        textMeshW.text = "Wood: " + countWood.ToString() + "/" + Player.maxWood;
     }
 }

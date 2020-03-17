@@ -20,9 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(Player.getActions() > 0)
+        if(Player.avaliableActions() > 0)
         {
             Move();
+        }
+        else
+        {
+            
         }
         
     }
@@ -49,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
                         Vector3 pos = newPosition;
                         pos.y = 0.5f;
                         transform.position = pos;
-                        Player.subtractActions();
+                        Player.countActions();
                     }
                 }
             }

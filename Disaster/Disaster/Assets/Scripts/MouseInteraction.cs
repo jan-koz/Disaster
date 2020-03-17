@@ -19,10 +19,7 @@ public class MouseInteraction : MonoBehaviour
     {
         if (gameObject.tag == "hover")
             Cursor.SetCursor(hoverCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-        //if(UpgradeHouse.GameIsPaused == true)
-        //{
-        //    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-        //}
+
         else
             Cursor.SetCursor(handCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }

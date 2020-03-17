@@ -35,9 +35,7 @@ public class UpgradeHouse : MonoBehaviour
         upgradeMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
-
         GameObject.Find("PlayerPrefab(Clone)").GetComponent<PlayerMovement>().enabled = true;
-        Debug.Log("TimeScale = " + Time.timeScale);
     }
 
     public void Pause()
@@ -46,33 +44,38 @@ public class UpgradeHouse : MonoBehaviour
         upgradeMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-
-        //for (int y = 0; y < gridHeight; y++)
-        //{
-        //    for (int x = 0; x < gridWidth; x++)
-        //    {
-        //        GameObject.Find("Hexagon" + x + "|" + y).GetComponent<MouseInteraction>().enabled = false;
-        //    }
-        //}
-        //GameObject.Find("EventSystem").GetComponent<MouseInteraction>().enabled = false;
-        //GameObject.Find("Grid").GetComponent<Grid>().enabled = false;
-        //GameObject.Find("HousePrefab(Clone)").GetComponent<MouseInteraction>().enabled = false;
         GameObject.Find("PlayerPrefab(Clone)").GetComponent<PlayerMovement>().enabled = false;
-        Debug.Log("TimeScale = " + Time.timeScale);
        
     }
 
-    public void Skill1()
+    //Function to increase max ammount of carried wood.
+    public void IncreaseWoodCapacity()
     {
-        Debug.Log("Skill 1 upgraded");
+        int currentWood = WoodCounter.countWood;
+        if(currentWood >= 2)    //Number of woods needed for an upgrade
+        {
+            Player.maxWood++;
+            WoodCounter.countWood -= 2;
+            Debug.Log("Current capacity: " + Player.maxWood);
+
+        }
+        else { Debug.Log("Too little wood to upgrade"); }
+
     }
 
-    public void Skill2()
+    //Function to increase number of actions avaliable
+    public void IncreaseNumberOfActions()
     {
-        Debug.Log("Skill 2 upgraded");
+        int currentWood = WoodCounter.countWood;
+        if (currentWood >= 2)       //Number of woods needed for an upgrade
+        {
+            Player.maxActions++;
+            WoodCounter.countWood -= 2;
+            Debug.Log("Current number of actions: " + Player.maxActions);
+        }
+        else { Debug.Log("Too little wood to upgrade"); }
     }
-
-    public void Skill3()
+        public void Skill3()
     {
         Debug.Log("Skill 3 upgraded");
     }
