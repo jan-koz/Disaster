@@ -10,7 +10,7 @@ public class TreeObject : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("hiiiiit");
+            Debug.Log("jump");
             Destroy(tree);
             this.tag = "Untagged";
         }

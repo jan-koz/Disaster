@@ -12,13 +12,17 @@ public class MouseInteraction : MonoBehaviour
     //public Vector2 hotSpot = Vector2.zero;
     private void Start()
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     private void OnMouseEnter()
     {
         if (gameObject.tag == "hover")
             Cursor.SetCursor(hoverCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        //if(UpgradeHouse.GameIsPaused == true)
+        //{
+        //    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        //}
         else
             Cursor.SetCursor(handCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }

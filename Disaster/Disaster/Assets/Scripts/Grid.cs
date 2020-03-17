@@ -6,9 +6,10 @@ public class Grid : MonoBehaviour
 {
     public Transform hexTreePrefab;
     public Transform playerPrefab;
+    public Transform hexHousePrefab;
 
-    public int gridWidth = 11;
-    public int gridHeight = 11;
+    public int gridWidth = 15;
+    public int gridHeight = 15;
 
     [HideInInspector]
     public float hexWidth = 0.8f;
@@ -81,7 +82,14 @@ public class Grid : MonoBehaviour
                    // player.name = "Hexagon" + x + "|" + y;
 
                 }
-                if(x <= 2 && y <= 2)
+
+                // Upgrade house
+                if (x == 2 && y == 0) {
+                    Transform upgradeHouse = Instantiate(hexHousePrefab) as Transform;
+                    upgradeHouse.position = CalcWorldPos(gridPos);
+                    upgradeHouse.tag = "hover";
+                }
+                    if (x <= 2 && y <= 2)
                 {
                     // hex.GetComponentInChildren<BoxCollider>.
                     hex.transform.GetChild(2).gameObject.SetActive(false);
