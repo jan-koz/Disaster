@@ -10,24 +10,53 @@ public class PlayerMovement : MonoBehaviour
     Vector3 newPosition;
     Vector3 playerPositon;
 
+    // turn based system
+    public TurnSystem turnSystem;
+    public TurnClass turnClass;
+    public bool isTurn = false;
+    
     private void Start()
     {
         newPosition = transform.position;
         gridMeasures = FindObjectOfType<Grid>();
         Debug.Log(gridMeasures.hexWidth);
         Debug.Log(gridMeasures.hexHeight);
+        
+        turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
+        foreach(TurnClass tc in turnSystem.playersGroup)
+        {
+            if(tc.playerGameObject.name == gameObject.name)
+            {
+                turnClass = tc;
+            }
+        }
     }
 
     private void Update()
     {
-        if(Player.avaliableActions() > 0)
+        isTurn = turnClass.isTurn;
+        if(isTurn)
         {
-            Move();
+            if (Player.avaliableActions() > 0)
+            {
+                Move();
+            }
+            else
+            {
+                isTurn = false;
+                turnClass.isTurn = isTurn;
+                turnClass.wasTurnPrev = true;
+            }
         }
-        else
-        {
+
+        //if(Player.avaliableActions() > 0)
+        //{
+        //    Move();
+        //}
+        //else
+        //{
             
-        }
+        //}
         
     }
 
