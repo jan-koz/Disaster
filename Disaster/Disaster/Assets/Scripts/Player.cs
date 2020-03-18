@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static int maxActions = 80;
+    public static int maxActions = 10;
     public static int actionsCount = 0;
     public static int maxWood = 5;
 

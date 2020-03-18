@@ -113,6 +113,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6989049019350369739}
   gridMeasures: {fileID: 0}
+  turnSystem: {fileID: 0}
+  turnClass:
+    playerGameObject: {fileID: 3836594151192544131}
+    isTurn: 0
+    wasTurnPrev: 0
+  isTurn: 0
 --- !u!54 &4857251077916213860
 Rigidbody:
   m_ObjectHideFlags: 0

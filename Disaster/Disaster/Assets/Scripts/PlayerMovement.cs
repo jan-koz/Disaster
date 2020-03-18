@@ -21,9 +21,12 @@ public class PlayerMovement : MonoBehaviour
         gridMeasures = FindObjectOfType<Grid>();
         Debug.Log(gridMeasures.hexWidth);
         Debug.Log(gridMeasures.hexHeight);
-        
+
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
-        foreach(TurnClass tc in turnSystem.playersGroup)
+        turnClass.playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        turnSystem.playersGroup.Add(turnClass);
+
+        foreach (TurnClass tc in turnSystem.playersGroup)
         {
             if(tc.playerGameObject.name == gameObject.name)
             {
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
                 isTurn = false;
                 turnClass.isTurn = isTurn;
                 turnClass.wasTurnPrev = true;
+                Player.actionsCount = 0;
             }
         }
 
