@@ -7,6 +7,7 @@ public class Grid : MonoBehaviour
     public Transform hexTreePrefab;
     public Transform playerPrefab;
     public Transform hexHousePrefab;
+    public Transform WoodHousePrefab;
 
     public int gridWidth = 15;
     public int gridHeight = 15;
@@ -88,6 +89,15 @@ public class Grid : MonoBehaviour
                     Transform upgradeHouse = Instantiate(hexHousePrefab) as Transform;
                     upgradeHouse.position = CalcWorldPos(gridPos);
                     upgradeHouse.tag = "hover";
+                }
+
+                //Spawn wood house
+                if (x == 0 && y ==2)
+                {
+                    Transform woodHouse = Instantiate(WoodHousePrefab) as Transform;
+                    woodHouse.position = CalcWorldPos(gridPos);
+                    woodHouse.tag = "hover";
+
                 }
                     if (x <= 2 && y <= 2)
                 {

@@ -31,20 +31,13 @@ public class UpgradeHouse : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Player")
-    //    {
-    //        Pause();
-    //    }
-    //}
+ 
 
     void Resume()
     {
         upgradeMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
-       // GameObject.Find("PlayerPrefab(Clone)").GetComponent<PlayerMovement>().enabled = true;
     }
 
     public void Pause()
@@ -53,8 +46,6 @@ public class UpgradeHouse : MonoBehaviour
         upgradeMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
-       // GameObject.Find("PlayerPrefab(Clone)").GetComponent<PlayerMovement>().enabled = false;
-       
     }
 
     //Function to increase max ammount of carried wood.
@@ -84,6 +75,8 @@ public class UpgradeHouse : MonoBehaviour
         }
         else { Debug.Log("Too little wood to upgrade"); }
     }
+
+
 
     //Function to enable fire player prefab to scorch ground
     public void EnableFirePrefab()
