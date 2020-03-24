@@ -8,9 +8,9 @@ public class TurnSystem : MonoBehaviour
     
     private void Start()
     {
-        TurnClass turnClass = new TurnClass();
-        turnClass.playerGameObject = GameObject.FindGameObjectWithTag("Player");
-        this.playersGroup.Add(turnClass);
+        //TurnClass turnClass = new TurnClass();
+        //turnClass.playerGameObject = GameObject.FindGameObjectWithTag("Player");
+        //this.playersGroup.Add(turnClass);
         ResetTurns();
     }
 

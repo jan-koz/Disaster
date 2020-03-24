@@ -8,7 +8,9 @@ public class UpgradeHouse : MonoBehaviour
     public GameObject upgradeMenu;
     private GameObject oldPlayerPrefab;
     public GameObject newPlayerPrefab;
-
+    public GameObject newLumberjack;
+    public GroupOfLumberjacks groupOfLumberjacks;
+    [HideInInspector]
     public TurnSystem turnSystem;
     //public TurnClass turnClass;
 
@@ -18,6 +20,8 @@ public class UpgradeHouse : MonoBehaviour
     private void Start()
     {
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
+        //groupOfLumberjacks = this.GetComponent<GroupOfLumberjacks>();
+        groupOfLumberjacks = GameObject.Find("Lumberjacks").GetComponent<GroupOfLumberjacks>();
     }
 
     void Update()
@@ -29,9 +33,7 @@ public class UpgradeHouse : MonoBehaviour
                 Resume();
             } 
         }
-    }
-
- 
+    } 
 
     void Resume()
     {
@@ -87,14 +89,27 @@ public class UpgradeHouse : MonoBehaviour
             WoodCounter.countWood -= 5;
             oldPlayerPrefab = GameObject.Find("PlayerPrefab(Clone)");
             Vector3 positionOfPrefab = GameObject.Find("PlayerPrefab(Clone)").transform.position;
-
-            // Replace old prefab with the upgraded one
-            int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.Equals(oldPlayerPrefab));
+            
+            groupOfLumberjacks.lumberjacks.Remove(oldPlayerPrefab);
             Destroy(oldPlayerPrefab.gameObject);
             Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
-            turnSystem.playersGroup[indexInTurns].playerGameObject = newPlayerPrefab;
+            groupOfLumberjacks.lumberjacks.Add(newPlayerPrefab);
         }
         else { Debug.Log("Too little wood to upgrade"); }
 
+    }
+
+    //Function to hire another lumberjack
+    public void HireLumberjack()
+    {
+        int currentWood = WoodCounter.countWood;
+        if (currentWood >= 1)    //Number of woods needed for an upgrade
+        {
+            WoodCounter.countWood -= 1;
+            Vector3 positionOfPrefab = GameObject.Find("PlayerPrefab(Clone)").transform.position;
+            Instantiate(newLumberjack, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            groupOfLumberjacks.lumberjacks.Add(newLumberjack);
+        }
+        else { Debug.Log("Too little wood to upgrade"); }
     }
 }

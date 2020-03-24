@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
                 Player.actionsCount = 0;
             }
         }
-
     }
 
     private void Move()
