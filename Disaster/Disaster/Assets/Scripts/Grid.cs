@@ -45,7 +45,7 @@ public class Grid : MonoBehaviour
         startPos = new Vector3(x, 0, z);
     }
 
-    Vector3 CalcWorldPos(Vector2 gridPos)
+    public Vector3 CalcWorldPos(Vector2 gridPos)
     {
         float offset = 0;
         if (gridPos.y % 2 != 0)
@@ -57,6 +57,23 @@ public class Grid : MonoBehaviour
         return new Vector3(x, 0, z);
     }
 
+    public void SpawnRandomTree()
+    {
+
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                if(x == 2 && y == 2) 
+                { 
+                    Transform hexTree = Instantiate(hexTreePrefab) as Transform;
+                    Vector2 gridPos = new Vector2(x, y);
+                    hexTree.position = CalcWorldPos(gridPos);
+                    hexTree.parent = this.transform;
+                }
+            }
+        }
+    }
     void CreateGrid()
     {        
         for (int y = 0; y < gridHeight; y++)

@@ -8,7 +8,7 @@ public class TreeObject : MonoBehaviour
     public GameObject tree;
     public GameObject scorched;
     Player player;
-
+    private Vector3 position; 
     private void Start()
     {
         player = FindObjectOfType<Player>();
@@ -22,8 +22,12 @@ public class TreeObject : MonoBehaviour
             Debug.Log("jump");
             WoodCounter.countWood += 1;
             Player.actionsCount++; //adding extra action when cutting a tree
+            //List that stores position of cut trees
+            position = tree.transform.position;
+            GameObject.Find("Nature").GetComponent<NatureScript>().addPositionToList(position);
             Destroy(tree);
             this.tag = "Untagged";
+            Debug.Log("dlugosc listy: " + GameObject.Find("Nature").GetComponent<NatureScript>().getListOfPosition().Count);
         } 
 
         //checking if prefab of player changed and if so changing the ground to scorched
@@ -38,5 +42,10 @@ public class TreeObject : MonoBehaviour
         } 
 
         else { Debug.Log("No jump"); }
+    }
+
+    public Vector3 getPosition()
+    {
+        return position;
     }
 }
