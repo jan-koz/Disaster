@@ -51,6 +51,15 @@ public class TurnSystem : MonoBehaviour
             }
         }
     }
+
+    public void EndTurn()
+    {
+        if (Player.avaliableActions() > 0)
+        {
+            Player.UseAllActions();
+        }
+
+    }
 }
 
 [System.Serializable]

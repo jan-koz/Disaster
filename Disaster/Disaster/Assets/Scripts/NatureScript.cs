@@ -6,7 +6,7 @@ public class NatureScript : MonoBehaviour
 {
     public Transform hexTreePrefab;
     private List<Vector3> listOfPosition = new List<Vector3>();
-    public TurnSystem turnSystem;
+    TurnSystem turnSystem;
     public TurnClass turnClass;
     public bool isTurn = false;
     private bool once = false;

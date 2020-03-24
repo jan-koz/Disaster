@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if(isTurn)
         {
             if (Player.avaliableActions() > 0)
-            {
+            {              
                 Move();
             }
             else
@@ -46,17 +46,7 @@ public class PlayerMovement : MonoBehaviour
                 turnClass.wasTurnPrev = true;
                 Player.actionsCount = 0;
             }
-        }
-
-        //if(Player.avaliableActions() > 0)
-        //{
-        //    Move();
-        //}
-        //else
-        //{
-            
-        //}
-        
+        }        
     }
 
     private void Move()
@@ -86,5 +76,5 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-    }
+    }    
 }
