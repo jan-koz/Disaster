@@ -23,15 +23,10 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(gridMeasures.hexHeight);
 
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
-        turnClass.playerGameObject = GameObject.FindGameObjectWithTag("Player");
-        turnSystem.playersGroup.Add(turnClass);
 
         foreach (TurnClass tc in turnSystem.playersGroup)
         {
-            if(tc.playerGameObject.name == gameObject.name)
-            {
-                turnClass = tc;
-            }
+            turnClass = tc;
         }
     }
 
