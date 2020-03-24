@@ -10,7 +10,7 @@ public class UpgradeHouse : MonoBehaviour
     public GameObject newPlayerPrefab;
 
     public TurnSystem turnSystem;
-    public TurnClass turnClass;
+    //public TurnClass turnClass;
 
     public int gridWidth = 15;
     public int gridHeight = 15;
@@ -84,12 +84,15 @@ public class UpgradeHouse : MonoBehaviour
         int currentWood = WoodCounter.countWood;
         if (currentWood >= 5)    //Number of woods needed for an upgrade
         {
-            oldPlayerPrefab = GameObject.Find("PlayerPrefab(Clone)");
-            Vector3 positionOfPrefab = oldPlayerPrefab.transform.position;
-            Destroy(GameObject.Find("PlayerPrefab(Clone)").gameObject);
-            Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             WoodCounter.countWood -= 5;
-            turnSystem.playersGroup[1].playerGameObject = newPlayerPrefab;
+            oldPlayerPrefab = GameObject.Find("PlayerPrefab(Clone)");
+            Vector3 positionOfPrefab = GameObject.Find("PlayerPrefab(Clone)").transform.position;
+
+            // Replace old prefab with the upgraded one
+            int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.Equals(oldPlayerPrefab));
+            Destroy(oldPlayerPrefab.gameObject);
+            Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            turnSystem.playersGroup[indexInTurns].playerGameObject = newPlayerPrefab;
         }
         else { Debug.Log("Too little wood to upgrade"); }
 
