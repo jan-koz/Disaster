@@ -12,7 +12,7 @@ public class WoodCounter : MonoBehaviour
         countWood = 0;
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         textMeshW.text = "Wood: " + countWood.ToString() + "/" + Player.maxWood;

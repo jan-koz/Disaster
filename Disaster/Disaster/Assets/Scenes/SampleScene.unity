@@ -231,6 +231,8 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 6989049019350369739, guid: ffb5c90202dd26d488efac2f3f841b4c,
     type: 3}
+  enemyPrefab: {fileID: 6989049019350369739, guid: ce1dca4edc8712349a4b6775a7fc52d1,
+    type: 3}
   hexHousePrefab: {fileID: 3645503303021244992, guid: a3218d37c4cb71b44a93e2a52ccea92c,
     type: 3}
   WoodHousePrefab: {fileID: 7933853083430794427, guid: 27d6dfc1868bb984080a9f97cacdd598,
@@ -2292,10 +2294,6 @@ MonoBehaviour:
   newPlayerPrefab: {fileID: 3098001349653751682, guid: 699816e434d22364ca8993434d95966d,
     type: 3}
   turnSystem: {fileID: 0}
-  turnClass:
-    playerGameObject: {fileID: 0}
-    isTurn: 0
-    wasTurnPrev: 0
   gridWidth: 15
   gridHeight: 15
 --- !u!225 &1686464920

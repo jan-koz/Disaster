@@ -47,15 +47,6 @@ public class PlayerMovement : MonoBehaviour
                 Player.actionsCount = 0;
             }
         }
-
-        //if(Player.avaliableActions() > 0)
-        //{
-        //    Move();
-        //}
-        //else
-        //{
-            
-        //}
         
     }
 

@@ -8,10 +8,12 @@ public class TreeObject : MonoBehaviour
     public GameObject tree;
     public GameObject scorched;
     Player player;
-    private Vector3 position; 
+    private Vector3 position;
+    public static int countDestroedTrees;
     private void Start()
     {
         player = FindObjectOfType<Player>();
+        countDestroedTrees = 0;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,6 +28,7 @@ public class TreeObject : MonoBehaviour
             position = tree.transform.position;
             GameObject.Find("Nature").GetComponent<NatureScript>().addPositionToList(position);
             Destroy(tree);
+            countDestroedTrees++;
             this.tag = "Untagged";
             Debug.Log("dlugosc listy: " + GameObject.Find("Nature").GetComponent<NatureScript>().getListOfPosition().Count);
         } 

@@ -8,6 +8,7 @@ TagManager:
   - Tree
   - button
   - PlayerFire
+  - Enemy
   layers:
   - Default
   - TransparentFX

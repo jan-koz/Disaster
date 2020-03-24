@@ -6,8 +6,10 @@ public class Grid : MonoBehaviour
 {
     public Transform hexTreePrefab;
     public Transform playerPrefab;
+    public Transform enemyPrefab;
     public Transform hexHousePrefab;
     public Transform WoodHousePrefab;
+    private bool hasSpawned = false;
 
     public int gridWidth = 15;
     public int gridHeight = 15;
@@ -25,6 +27,15 @@ public class Grid : MonoBehaviour
         AddGap();
         CalcStartPos();
         CreateGrid();
+    }
+
+    void Update()
+    {
+        if (TreeObject.countDestroedTrees > Enemy.maxCollectedWoodEnt && !hasSpawned)
+        {
+            CreateEnemy();
+            TreeObject.countDestroedTrees = 0;
+        }
     }
 
     void AddGap()
@@ -64,8 +75,8 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                if(x == 2 && y == 2) 
-                { 
+                if (x == 2 && y == 2)
+                {
                     Transform hexTree = Instantiate(hexTreePrefab) as Transform;
                     Vector2 gridPos = new Vector2(x, y);
                     hexTree.position = CalcWorldPos(gridPos);
@@ -74,8 +85,33 @@ public class Grid : MonoBehaviour
             }
         }
     }
+
+    void CreateEnemy()
+    {
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                Vector2 gridPos = new Vector2(x, y);
+
+                if (x == 1 && y == 0)
+                {
+                    Transform enemy = Instantiate(enemyPrefab) as Transform;
+                    hasSpawned = true;
+                    enemy.position = CalcWorldPos(gridPos);
+                    Vector3 pos = transform.position;
+                    Vector3 pos2 = transform.position;
+                    pos.y = 1.5f;
+                    transform.position = pos;
+                    enemy.parent = this.transform;
+                    transform.position = pos2;
+                }
+            }
+        }
+
+    }
     void CreateGrid()
-    {        
+    {
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)
@@ -85,7 +121,7 @@ public class Grid : MonoBehaviour
                 hex.position = CalcWorldPos(gridPos);
                 hex.parent = this.transform;
                 hex.name = "Hexagon" + x + "|" + y;
-                if (x==0 && y == 0)
+                if (x == 0 && y == 0)
                 {
                     Transform player = Instantiate(playerPrefab) as Transform;
                     //Vector2 playerPos = new Vector2(x, y + 1.0f);                
@@ -96,32 +132,33 @@ public class Grid : MonoBehaviour
                     transform.position = pos;
                     player.parent = this.transform;
                     transform.position = pos2;
-                    
-                   // player.name = "Hexagon" + x + "|" + y;
+
+                    // player.name = "Hexagon" + x + "|" + y;
 
                 }
 
                 // Upgrade house
-                if (x == 2 && y == 0) {
+                if (x == 2 && y == 0)
+                {
                     Transform upgradeHouse = Instantiate(hexHousePrefab) as Transform;
                     upgradeHouse.position = CalcWorldPos(gridPos);
                     upgradeHouse.tag = "hover";
                 }
 
                 //Spawn wood house
-                if (x == 0 && y ==2)
+                if (x == 0 && y == 2)
                 {
                     Transform woodHouse = Instantiate(WoodHousePrefab) as Transform;
                     woodHouse.position = CalcWorldPos(gridPos);
                     woodHouse.tag = "hover";
 
                 }
-                    if (x <= 2 && y <= 2)
+                if (x <= 2 && y <= 2)
                 {
                     // hex.GetComponentInChildren<BoxCollider>.
                     hex.transform.GetChild(2).gameObject.SetActive(false);
                 }
-                if(x >2 || y > 2)
+                if (x > 2 || y > 2)
                 {
                     hex.gameObject.tag = "hover";
                 }
