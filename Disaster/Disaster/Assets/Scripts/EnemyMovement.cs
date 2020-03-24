@@ -9,11 +9,23 @@ public class EnemyMovement : MonoBehaviour
     private Grid gridMeasures;
     private Vector3 newPosition;
     private Vector3 playerPositon;
+    public bool isTurn = false;
+    public TurnClass turnClass;
+    public TurnSystem turnSystem;
+    private NatureScript nature;
 
     void Start()
     {
         player = FindObjectOfType<Player>();
         gridMeasures = FindObjectOfType<Grid>();
+        turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
+        nature = FindObjectOfType<NatureScript>();
+
+        foreach (TurnClass tc in turnSystem.playersGroup)
+        {
+            turnClass = tc;
+        }
+
     }
 
     void Update()
@@ -22,23 +34,24 @@ public class EnemyMovement : MonoBehaviour
         if (distance <= lookRadius)
         {
             //tu będzie atak !
-            MoveEnemy(transform.position, player.transform.position); ///COS TU NIE GRA
             FaceTarget(transform.position, player.transform.position);
         }
+
+        isTurn = turnClass.isTurn;
+        if (isTurn)
+        {
+            StartCoroutine(nature.RespawnTrees());
+            nature.SpawnTrees();
+        }
+        else
+        {
+            isTurn = false;
+            turnClass.isTurn = isTurn;
+            turnClass.wasTurnPrev = true;
+        }
+
     }
 
-    private void MoveEnemy(Vector3 enemyPosition, Vector3 playerPosition)
-    {
-        newPosition = playerPositon;
-        float newX = Mathf.Abs(playerPosition.x - enemyPosition.x);
-        float newZ = Mathf.Abs(playerPosition.z - enemyPosition.z);
-        if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f)
-        {
-            Vector3 pos = newPosition;
-            pos.y = 0.5f;
-            enemyPosition = pos;
-        }
-    }
 
     void FaceTarget(Vector3 enemyPosition, Vector3 playerPosition)
     {

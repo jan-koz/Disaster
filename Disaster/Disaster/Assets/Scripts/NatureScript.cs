@@ -42,7 +42,7 @@ public class NatureScript : MonoBehaviour
         }
     }
 
-    IEnumerator RespawnTrees()
+    public IEnumerator RespawnTrees()
     {
         yield return new WaitForSeconds(1f);
 
