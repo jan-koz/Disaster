@@ -8,18 +8,20 @@ public class WoodHouse : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject woodStorageMenu;
     private static int storedWood = 0;
+    GameObject player;
+    EnterWoodHouse enter;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        enter = GameObject.Find("WoodHousePrefab(Clone)").GetComponent<EnterWoodHouse>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        player = enter.player;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -50,11 +52,11 @@ public class WoodHouse : MonoBehaviour
 
     public void storeWood()
     {
-        int currentWood = WoodCounter.countWood;
+        int currentWood = player.GetComponent<Player>().woodCount;
         if (currentWood > 0)
         {
             storedWood++;
-            WoodCounter.countWood--;
+            player.GetComponent<Player>().woodCount--;
             Debug.Log("You've stored piece of wood. Wood in storage: " + storedWood);
         } else
         {
@@ -70,7 +72,7 @@ public class WoodHouse : MonoBehaviour
         if (storedWood > 0)
         {
             storedWood--;
-            WoodCounter.countWood++;
+            player.GetComponent<Player>().woodCount++;
             Debug.Log("You've withdrawn piece of wood");
         } else
         {

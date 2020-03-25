@@ -6,22 +6,28 @@ public class UpgradeHouse : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject upgradeMenu;
-    private GameObject oldPlayerPrefab;
+    public GameObject oldPlayerPrefab;
     public GameObject newPlayerPrefab;
 
     public TurnSystem turnSystem;
     //public TurnClass turnClass;
+
+    GameObject player;
+    EnterUpgradeHouse enter;
 
     public int gridWidth = 15;
     public int gridHeight = 15;
 
     private void Start()
     {
+        enter = GameObject.Find("HousePrefab(Clone)").GetComponentInParent<EnterUpgradeHouse>();
+       
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
     }
 
     void Update()
     {
+        player = enter.player;
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -51,12 +57,12 @@ public class UpgradeHouse : MonoBehaviour
     //Function to increase max ammount of carried wood.
     public void IncreaseWoodCapacity()
     {
-        int currentWood = WoodCounter.countWood;
+        int currentWood = player.GetComponent<Player>().woodCount;
         if(currentWood >= 2)    //Number of woods needed for an upgrade
         {
-            Player.maxWood++;
-            WoodCounter.countWood -= 2;
-            Debug.Log("Current capacity: " + Player.maxWood);
+            player.GetComponent<Player>().maxWood++;
+            player.GetComponent<Player>().woodCount -= 2;
+            Debug.Log("Current capacity: " + player.GetComponent<Player>().maxWood);
 
         }
         else { Debug.Log("Too little wood to upgrade"); }
@@ -66,12 +72,12 @@ public class UpgradeHouse : MonoBehaviour
     //Function to increase number of actions avaliable
     public void IncreaseNumberOfActions()
     {
-        int currentWood = WoodCounter.countWood;
+        int currentWood = player.GetComponent<Player>().woodCount;
         if (currentWood >= 2)       //Number of woods needed for an upgrade
         {
-            Player.maxActions++;
-            WoodCounter.countWood -= 2;
-            Debug.Log("Current number of actions: " + Player.maxActions);
+            player.GetComponent<Player>().maxActions++;
+            player.GetComponent<Player>().woodCount -= 2;
+            Debug.Log("Current number of actions: " + player.GetComponent<Player>().maxActions);
         }
         else { Debug.Log("Too little wood to upgrade"); }
     }
@@ -81,19 +87,44 @@ public class UpgradeHouse : MonoBehaviour
     //Function to enable fire player prefab to scorch ground
     public void EnableFirePrefab()
     {
-        int currentWood = WoodCounter.countWood;
+        int currentWood = player.GetComponent<Player>().woodCount;
         if (currentWood >= 5)    //Number of woods needed for an upgrade
         {
-            WoodCounter.countWood -= 5;
-            oldPlayerPrefab = GameObject.Find("player");
-            Vector3 positionOfPrefab = GameObject.Find("player").transform.position;
+            player.GetComponent<Player>().woodCount -= 5;
+            //oldPlayerPrefab = GameObject.Find("player");
+            Vector3 positionOfPrefab = player.transform.position; //  GameObject.Find("player").transform.position;
 
             // Replace old prefab with the upgraded one
-            int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.Equals(oldPlayerPrefab));
-            Destroy(oldPlayerPrefab.gameObject);
+            int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.transform.position.Equals(positionOfPrefab));
+            //GameObject oldPrefab = player.GetComponent<GameObject>();
+            //Destroy(oldPrefab.gameObject);
             GameObject fire = Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             fire.name = "fire";
             turnSystem.playersGroup[indexInTurns].playerGameObject = fire;
+            player.SetActive(false);
+
+        }
+        else { Debug.Log("Too little wood to upgrade"); }
+
+    }
+
+    public void Hire()
+    {
+        int currentWood = player.GetComponent<Player>().woodCount;
+        if (currentWood >= 5)    //Number of woods needed for an upgrade
+        {
+            player.GetComponent<Player>().woodCount -= 5;
+            //oldPlayerPrefab = GameObject.Find("player");
+            Vector3 positionOfPrefab = player.transform.position; //  GameObject.Find("player").transform.position;
+
+            // Replace old prefab with the upgraded one
+            //int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.transform.position.Equals(oldPlayerPrefab));
+            //Destroy(oldPlayerPrefab.gameObject);
+            GameObject newLum = Instantiate(oldPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            //fire.name = "fire";
+            TurnClass turnClass = new TurnClass();
+            turnClass.playerGameObject = newLum;
+            turnSystem.playersGroup.Add(turnClass);
         }
         else { Debug.Log("Too little wood to upgrade"); }
 

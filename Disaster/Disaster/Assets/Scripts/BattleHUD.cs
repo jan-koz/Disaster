@@ -11,6 +11,7 @@ public class BattleHUD : MonoBehaviour
 
     public void SetupHud(Unit unit)
     {
+        hpSlider.interactable = false;
         nameText.text ="Name: " + unit.unitName;
         levelText.text = "LvL: " + unit.unitLvl;
         hpSlider.maxValue = unit.maxHp;

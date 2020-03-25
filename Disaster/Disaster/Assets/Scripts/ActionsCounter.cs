@@ -6,16 +6,14 @@ using TMPro;
 public class ActionsCounter : MonoBehaviour
 {
     public TextMeshProUGUI textMeshW;
-    public static int countActions;
-    void Start()
-    {
-        countActions = Player.avaliableActions();
-    }
+    public TurnSystem turnSystem;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        countActions = Player.avaliableActions();
-        textMeshW.text = "Actions: " + countActions.ToString() + "/" + Player.maxActions;
+        if(!turnSystem.playersGroup[0].isTurn)
+        {
+            Player player = turnSystem.playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.GetComponent<Player>();
+            textMeshW.text = "Actions: " + player.avaliableActions().ToString() + "/" + player.maxActions;
+        }
     }
 }

@@ -4,32 +4,38 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static int maxActions = 10;
-    public static int actionsCount = 0;
-    public static int maxWood = 5;
-
-    public static int getActions()
+    public int maxActions = 10;
+    public int actionsCount = 0;
+    public int maxWood = 5;
+    public int woodCount = 0;
+    
+    public int getActions()
     {
         return actionsCount;
     }
 
-    public static void countActions()
+    public void countActions()
     {
         actionsCount++;
     }
 
-    public static int getMaxWood()
+    public int getMaxWood()
     {
         return maxWood;
     }
 
-    public static int avaliableActions()
+    public int avaliableActions()
     {
         return maxActions - actionsCount;
     }
 
-    public static void UseAllActions()
+    public void UseAllActions()
     {
         actionsCount = maxActions;
     }
+
+    public int GetWoodCount()
+    {
+        return woodCount;
+    }   
 }

@@ -7,23 +7,24 @@ public class TreeObject : MonoBehaviour
 {
     public GameObject tree;
     public GameObject scorched;
-    Player player;
     private Vector3 position;
     public static int countDestroedTrees;
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        //player = FindObjectOfType<Player>();
         countDestroedTrees = 0;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Player player = other.GetComponent<Player>();
+
         if (other.gameObject.tag == "Player" && this.tag == "hover"
-            && WoodCounter.countWood != Player.maxWood && Player.avaliableActions() >= 2)
+            && player.woodCount != player.maxWood && player.avaliableActions() >= 2)
         {
             Debug.Log("jump");
-            WoodCounter.countWood += 1;
-            Player.actionsCount++; //adding extra action when cutting a tree
+            player.woodCount += 1;
+            player.actionsCount++; //adding extra action when cutting a tree
             //List that stores position of cut trees
             position = tree.transform.position;
             GameObject.Find("Nature").GetComponent<NatureScript>().addPositionToList(position);
@@ -34,10 +35,10 @@ public class TreeObject : MonoBehaviour
 
         //checking if prefab of player changed and if so changing the ground to scorched
         else if (other.gameObject.tag == "PlayerFire" && this.tag == "hover"
-            && WoodCounter.countWood != Player.maxWood && Player.avaliableActions() >= 2) 
+            && player.woodCount != player.maxWood && player.avaliableActions() >= 2) 
         {
-            WoodCounter.countWood += 1;
-            Player.actionsCount++;
+            player.woodCount += 1;
+            player.actionsCount++;
             Vector3 positionOfThis = this.transform.position;
             Instantiate(scorched, positionOfThis, transform.rotation * Quaternion.Euler(0f, -180f, 0f));
             Destroy(this.gameObject);

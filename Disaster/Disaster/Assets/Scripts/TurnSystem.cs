@@ -5,7 +5,9 @@ using UnityEngine;
 public class TurnSystem : MonoBehaviour
 {
     public List<TurnClass> playersGroup;
+    Player player;
     public static int turnCounter = 0;
+
     private void Start()
     {
         TurnClass turnClass = new TurnClass();
@@ -17,6 +19,7 @@ public class TurnSystem : MonoBehaviour
     private void Update()
     {
         UpdateTurns();
+        player = playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.GetComponent<Player>();
     }
 
     void ResetTurns()
@@ -57,9 +60,9 @@ public class TurnSystem : MonoBehaviour
 
     public void EndTurn()
     {
-        if (Player.avaliableActions() > 0)
+        if (player.avaliableActions() > 0)
         {
-            Player.UseAllActions();
+            player.UseAllActions();
         }
 
     }

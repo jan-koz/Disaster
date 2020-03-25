@@ -20,8 +20,8 @@ public class LevelChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("player");
-        fire = GameObject.Find("fire");
+        player = GameObject.Find("PlayerPrefab(Clone)");
+        fire = GameObject.Find("PlayerPrefabFire(Clone)");
         enemy = GameObject.Find("enemy");
         CheckPosition();
     }

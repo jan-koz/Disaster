@@ -31,6 +31,8 @@ public class Grid : MonoBehaviour
 
     void Start()
     {
+        image2.SetActive(false);
+        image3.SetActive(false);
         AddGap();
         CalcStartPos();
         CreateGrid();
@@ -49,7 +51,8 @@ public class Grid : MonoBehaviour
             TreeObject.countDestroedTrees = 0;
             if (check2)
             {
-                image2.SetActive(true);
+                check2 = false;
+                image3.SetActive(true);
                 StartCoroutine(WaitForInstruction(image3));
             }
 
@@ -57,11 +60,12 @@ public class Grid : MonoBehaviour
 
         if (check)
         {
-            if (Player.maxWood == WoodCounter.countWood)
-            {
+            if (GameObject.Find("player").GetComponent<Player>().maxWood == GameObject.Find("player").GetComponent<Player>().woodCount)
+            {   
                 image2.SetActive(true);
                 StartCoroutine(WaitForInstruction(image2));
             }
+            check = false;
         }
     }
 
@@ -158,7 +162,7 @@ public class Grid : MonoBehaviour
                     Vector3 pos2 = transform.position;
                     pos.y = 1.5f;
                     transform.position = pos;
-                    player.parent = this.transform;
+                    player = this.transform;
                     transform.position = pos2;
                     player.name = "player";
 
@@ -197,7 +201,7 @@ public class Grid : MonoBehaviour
 
     public IEnumerator WaitForInstruction(GameObject image)
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         image.SetActive(false);
     }
 }

@@ -15,8 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public TurnClass turnClass;
     public bool isTurn = false;
 
+    Player player;
+
     private void Start()
     {
+        player = this.GetComponentInParent<Player>();
         newPosition = transform.position;
         gridMeasures = FindObjectOfType<Grid>();
         Debug.Log(gridMeasures.hexWidth);
@@ -35,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         isTurn = turnClass.isTurn;
         if (isTurn)
         {
-            if (Player.avaliableActions() > 0)
+            if (player.avaliableActions() > 0)
             {
                 Move();
             }
@@ -44,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
                 isTurn = false;
                 turnClass.isTurn = isTurn;
                 turnClass.wasTurnPrev = true;
-                Player.actionsCount = 0;
+                player.actionsCount = 0;
             }
         }
 
@@ -72,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
                         Vector3 pos = newPosition;
                         pos.y = 0.5f;
                         transform.position = pos;
-                        Player.countActions();
+                        player.countActions();
                     }
                 }
             }

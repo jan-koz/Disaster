@@ -6,15 +6,14 @@ using TMPro;
 public class WoodCounter : MonoBehaviour
 {
     public TextMeshProUGUI textMeshW;
-    public static int countWood;
-    void Start()
-    {
-        countWood = 0;
-    }
+    public TurnSystem turnSystem;
 
-  
-    void Update()
+    private void Update()
     {
-        textMeshW.text = "Wood: " + countWood.ToString() + "/" + Player.maxWood;
+        if (!turnSystem.playersGroup[0].isTurn)
+        {
+            Player player = turnSystem.playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.GetComponent<Player>();
+            textMeshW.text = "Wood: " + player.woodCount.ToString() + "/" + player.maxWood;
+        }
     }
 }
