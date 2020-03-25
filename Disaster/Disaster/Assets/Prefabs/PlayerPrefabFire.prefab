@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 4260693035519058725}
   - component: {fileID: 6676711530764101221}
   - component: {fileID: 5926769203796161551}
+  - component: {fileID: -7467499427897038094}
   m_Layer: 0
   m_Name: PlayerPrefabFire
   m_TagString: PlayerFire
@@ -333,5 +334,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aee3b14231678a43866187fa3b5247d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7467499427897038094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098001349653751682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a81aabee283f484fa1fc178a4c5ecbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

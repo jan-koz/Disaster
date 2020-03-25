@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST}
 
 public class BattleSystem : MonoBehaviour
 {
+    public Button butt1;
+    public Button butt2;
     public BattleState state;
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
@@ -15,6 +18,7 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattleStation;
 
     public Text dialogueText;
+    public GameObject image;
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
@@ -24,6 +28,7 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+        image.SetActive(false);
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
@@ -77,16 +82,26 @@ public class BattleSystem : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
-
+        butt1.interactable = false;
+        butt2.interactable = false;
         StartCoroutine(PlayerAttack());
     }
 
-    void EndBattle()
+    public void EndBattle()
     {
         if (state == BattleState.WON)
+        {
             dialogueText.text = "You won the battle!";
+            SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        }
+
         else if (state == BattleState.LOST)
-            dialogueText.text = "You lost the battle!";
+        {
+            dialogueText.text = "You lost the war!";
+            image.SetActive(true);
+            StartCoroutine(WaitAfterLoss());
+            Application.Quit();
+        }
     }
 
     IEnumerator EnemyTurn()
@@ -100,7 +115,8 @@ public class BattleSystem : MonoBehaviour
         playerHUD.SetHP(playerUnit.currentHp);
 
         yield return new WaitForSeconds(1f);
-
+        butt1.interactable = true;
+        butt2.interactable = true;
         if (isDead)
         {
             state = BattleState.LOST;
@@ -118,7 +134,8 @@ public class BattleSystem : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
-
+        butt1.interactable = false;
+        butt2.interactable = false;
         StartCoroutine(PlayerHeal());
     }
 
@@ -132,5 +149,10 @@ public class BattleSystem : MonoBehaviour
 
         state = BattleState.ENEMYTURN;
         StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator WaitAfterLoss()
+    {
+        yield return new WaitForSeconds(10f);
     }
 }

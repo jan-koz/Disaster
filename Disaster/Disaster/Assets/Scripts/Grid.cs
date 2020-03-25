@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Grid : MonoBehaviour
 {
+    public GameObject image;
+    public GameObject image2;
+    public GameObject image3;
+    private bool check = true;
+    private bool check2 = true;
+
     public Transform hexTreePrefab;
     public Transform playerPrefab;
     public Transform enemyPrefab;
@@ -29,12 +36,32 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
+    private void Awake()
+    {
+        StartCoroutine(WaitForInstruction(image));
+    }
     void Update()
     {
+        
         if (TreeObject.countDestroedTrees > Enemy.maxCollectedWoodEnt && !hasSpawned)
         {
             CreateEnemy();
             TreeObject.countDestroedTrees = 0;
+            if (check2)
+            {
+                image2.SetActive(true);
+                StartCoroutine(WaitForInstruction(image3));
+            }
+
+        }
+
+        if (check)
+        {
+            if (Player.maxWood == WoodCounter.countWood)
+            {
+                image2.SetActive(true);
+                StartCoroutine(WaitForInstruction(image2));
+            }
         }
     }
 
@@ -105,6 +132,7 @@ public class Grid : MonoBehaviour
                     transform.position = pos;
                     enemy.parent = this.transform;
                     transform.position = pos2;
+                    enemy.name = "enemy";
                 }
             }
         }
@@ -132,6 +160,7 @@ public class Grid : MonoBehaviour
                     transform.position = pos;
                     player.parent = this.transform;
                     transform.position = pos2;
+                    player.name = "player";
 
                     // player.name = "Hexagon" + x + "|" + y;
 
@@ -164,5 +193,11 @@ public class Grid : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator WaitForInstruction(GameObject image)
+    {
+        yield return new WaitForSeconds(10f);
+        image.SetActive(false);
     }
 }

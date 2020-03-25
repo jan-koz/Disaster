@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4857251077916213860}
   - component: {fileID: 276621044822507439}
   - component: {fileID: 8488354283683783441}
+  - component: {fileID: 2137863903451273012}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Enemy
@@ -139,9 +140,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cfb7ef19214b041a5dae40cfb824d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 5
-  playerPrefab: {fileID: 6989049019350369739, guid: ffb5c90202dd26d488efac2f3f841b4c,
-    type: 3}
+  isTurn: 0
+  turnClass:
+    playerGameObject: {fileID: 0}
+    isTurn: 0
+    wasTurnPrev: 0
+  turnSystem: {fileID: 0}
+--- !u!114 &2137863903451273012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836594151192544131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a81aabee283f484fa1fc178a4c5ecbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3862866962497593928
 GameObject:
   m_ObjectHideFlags: 0
