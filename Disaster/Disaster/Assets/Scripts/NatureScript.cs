@@ -11,7 +11,7 @@ public class NatureScript : MonoBehaviour
     public bool isTurn = false;
     private bool once = false;
     private GameObject enemyPrefab;
-    Player player;
+    GameObject player;
     private int callsController = 0;
     private int callsController2 = 1;
     
@@ -19,7 +19,7 @@ public class NatureScript : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
         foreach (TurnClass tc in turnSystem.playersGroup)
         {
@@ -34,7 +34,15 @@ public class NatureScript : MonoBehaviour
     
     private void Update()
     {
-        enemyPrefab = GameObject.Find("Grid/EnemyPrefab(Clone)");
+        enemyPrefab = GameObject.Find("Grid/enemy");
+        if (FindObjectOfType<Player>() != null)
+        {
+            player = GameObject.Find("player");
+        }
+        else
+        {
+            player = GameObject.Find("fire");
+        }
         isTurn = turnClass.isTurn;
         if(isTurn == false)
         {
