@@ -30,7 +30,6 @@ public class TreeObject : MonoBehaviour
             Destroy(tree);
             countDestroedTrees++;
             this.tag = "Untagged";
-            Debug.Log("dlugosc listy: " + GameObject.Find("Nature").GetComponent<NatureScript>().getListOfPosition().Count);
         } 
 
         //checking if prefab of player changed and if so changing the ground to scorched

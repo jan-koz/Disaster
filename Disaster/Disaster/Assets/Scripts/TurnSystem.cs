@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnSystem : MonoBehaviour
 {
     public List<TurnClass> playersGroup;
-    
+    public static int turnCounter = 0;
     private void Start()
     {
         TurnClass turnClass = new TurnClass();
@@ -34,6 +34,8 @@ public class TurnSystem : MonoBehaviour
                 playersGroup[i].wasTurnPrev = false;
             }
         }
+        turnCounter++;
+        Debug.Log("Turn counter: " + turnCounter);
     }
 
     void UpdateTurns()
@@ -50,6 +52,7 @@ public class TurnSystem : MonoBehaviour
                 ResetTurns();
             }
         }
+
     }
 
     public void EndTurn()

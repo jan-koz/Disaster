@@ -13,6 +13,11 @@ public class EnemyMovement : MonoBehaviour
     public TurnClass turnClass;
     public TurnSystem turnSystem;
     private NatureScript nature;
+    //private int callsController = Random.Range(0,GameObject.Find("Nature").GetComponent<NatureScript>().getListOfPosition().Count);
+    private int callsController = 5;
+    
+    
+
 
     void Start()
     {
@@ -21,10 +26,10 @@ public class EnemyMovement : MonoBehaviour
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
         nature = FindObjectOfType<NatureScript>();
 
-        foreach (TurnClass tc in turnSystem.playersGroup)
-        {
-            turnClass = tc;
-        }
+        //foreach (TurnClass tc in turnSystem.playersGroup)
+        //{
+        //    turnClass = tc;
+        //}
 
     }
 
@@ -41,7 +46,14 @@ public class EnemyMovement : MonoBehaviour
         if (isTurn)
         {
             StartCoroutine(nature.RespawnTrees());
-            nature.SpawnTrees();
+            
+
+            //Probably not needed
+            //if(callsController > 0)
+            //{
+            //    nature.SpawnTrees();
+            //    callsController--;
+            //}
         }
         else
         {
@@ -49,7 +61,7 @@ public class EnemyMovement : MonoBehaviour
             turnClass.isTurn = isTurn;
             turnClass.wasTurnPrev = true;
         }
-
+        
     }
 
 
