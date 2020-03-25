@@ -93,7 +93,7 @@ public class UpgradeHouse : MonoBehaviour
             Destroy(oldPlayerPrefab.gameObject);
             GameObject fire = Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             fire.name = "fire";
-            turnSystem.playersGroup[indexInTurns].playerGameObject = newPlayerPrefab;
+            turnSystem.playersGroup[indexInTurns].playerGameObject = fire;
         }
         else { Debug.Log("Too little wood to upgrade"); }
 
