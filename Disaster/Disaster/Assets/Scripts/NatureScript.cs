@@ -6,13 +6,20 @@ public class NatureScript : MonoBehaviour
 {
     public Transform hexTreePrefab;
     private List<Vector3> listOfPosition = new List<Vector3>();
-    public TurnSystem turnSystem;
+    TurnSystem turnSystem;
     public TurnClass turnClass;
     public bool isTurn = false;
     private bool once = false;
+    private GameObject enemyPrefab;
+    Player player;
+    private int callsController = 0;
+    private int callsController2 = 1;
+    
+
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
         foreach (TurnClass tc in turnSystem.playersGroup)
         {
@@ -27,28 +34,40 @@ public class NatureScript : MonoBehaviour
     
     private void Update()
     {
+        enemyPrefab = GameObject.Find("Grid/EnemyPrefab(Clone)");
         isTurn = turnClass.isTurn;
-
+        if(isTurn == false)
+        {
+            //To change number of spawned trees change these values
+            callsController = Random.Range(1, listOfPosition.Count - 1);
+            callsController2 = 1;
+        }
         if(isTurn)
         {
             StartCoroutine("RespawnTrees");
-            
+            //Enemy spawns random number of trees (when he exists)
+            if (enemyPrefab != null)
+            {
+                if (callsController > 0)
+                {
+                    SpawnTrees();
+                    callsController--;
+                }
+                
+            } else
+            {
+             //Spawn one tree every 4 turns
+                if(callsController2 > 0 && TurnSystem.turnCounter%4 == 0)
+                SpawnTrees();
+                callsController2--;
+            }
         }
 
-        if(once == false)
-        {
-            //SpawnTrees();
-            //once = true;
-        }
     }
 
-    IEnumerator RespawnTrees()
+    public IEnumerator RespawnTrees()
     {
         yield return new WaitForSeconds(1f);
-
-        // ADD respawn trees
-        
-
         isTurn = false;
         turnClass.isTurn = isTurn;
         turnClass.wasTurnPrev = true;
@@ -63,13 +82,20 @@ public class NatureScript : MonoBehaviour
     {
         return listOfPosition;
     }
+
+    //Spawning trees at random positions
     public void SpawnTrees()
     {
         if (listOfPosition.Count > 0) 
         {
-            Vector3 randomTreePosition = listOfPosition[0];
-            Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
-            listOfPosition.RemoveAt(0);
+            int currentPosition = Random.Range(0, listOfPosition.Count);
+            Vector3 randomTreePosition = listOfPosition[currentPosition];
+            if(randomTreePosition != player.transform.position)
+            {
+                Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
+                hexTreePrefab.tag = "hover";
+                listOfPosition.RemoveAt(currentPosition);
+            }
             
         }
 

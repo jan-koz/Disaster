@@ -27,4 +27,9 @@ public class Player : MonoBehaviour
     {
         return maxActions - actionsCount;
     }
+
+    public static void UseAllActions()
+    {
+        actionsCount = maxActions;
+    }
 }

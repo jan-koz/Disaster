@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4517481239121561200}
   m_Layer: 0
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: hover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63bab1e34a4e10a45aaea39e0e01277d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 0}
-  scorched: {fileID: 0}
+  tree: {fileID: 4235710350704870138}
+  scorched: {fileID: 1411991481385686, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
 --- !u!54 &4517481239121561200
 Rigidbody:
   m_ObjectHideFlags: 0

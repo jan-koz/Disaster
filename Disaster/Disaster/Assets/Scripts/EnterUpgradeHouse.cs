@@ -6,7 +6,7 @@ public class EnterUpgradeHouse : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "PlayerFire")
         {
             Debug.Log("You've entered upgrade house");
 

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public TurnSystem turnSystem;
     public TurnClass turnClass;
     public bool isTurn = false;
-    
+
     private void Start()
     {
         newPosition = transform.position;
@@ -23,22 +23,17 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(gridMeasures.hexHeight);
 
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
-        turnClass.playerGameObject = GameObject.FindGameObjectWithTag("Player");
-        turnSystem.playersGroup.Add(turnClass);
 
         foreach (TurnClass tc in turnSystem.playersGroup)
         {
-            if(tc.playerGameObject.name == gameObject.name)
-            {
-                turnClass = tc;
-            }
+            turnClass = tc;
         }
     }
 
     private void Update()
     {
         isTurn = turnClass.isTurn;
-        if(isTurn)
+        if (isTurn)
         {
             if (Player.avaliableActions() > 0)
             {
@@ -53,15 +48,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //if(Player.avaliableActions() > 0)
-        //{
-        //    Move();
-        //}
-        //else
-        //{
-            
-        //}
-        
     }
 
     private void Move()
@@ -81,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log(newX);
                     Debug.Log(newZ);
 
-                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f )
+                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f)
                     {
                         Vector3 pos = newPosition;
                         pos.y = 0.5f;
