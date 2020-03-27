@@ -9,10 +9,13 @@ public class TreeObject : MonoBehaviour
     public GameObject scorched;
     private Vector3 position;
     public static int countDestroedTrees;
+    private GameObject nature;
+
     private void Start()
     {
         //player = FindObjectOfType<Player>();
         countDestroedTrees = 0;
+        nature = GameObject.Find("Nature");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +30,9 @@ public class TreeObject : MonoBehaviour
             player.actionsCount++; //adding extra action when cutting a tree
             //List that stores position of cut trees
             position = tree.transform.position;
-            GameObject.Find("Nature").GetComponent<NatureScript>().addPositionToList(position);
+            nature.GetComponent<NatureScript>().addPositionToList(position);
+            nature.GetComponent<NatureScript>().addToEmptiedHexes(this.gameObject);
+
             Destroy(tree);
             countDestroedTrees++;
             this.tag = "Untagged";

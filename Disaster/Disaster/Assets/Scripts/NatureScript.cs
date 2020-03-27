@@ -6,6 +6,10 @@ public class NatureScript : MonoBehaviour
 {
     public Transform hexTreePrefab;
     private List<Vector3> listOfPosition = new List<Vector3>();
+    private List<GameObject> emptiedHexes = new List<GameObject>();
+    Vector3 treePosition;
+    GameObject glowingHex;
+
     TurnSystem turnSystem;
     public TurnClass turnClass;
     public bool isTurn = false;
@@ -56,9 +60,18 @@ public class NatureScript : MonoBehaviour
                 
             } else
             {
-             //Spawn one tree every 4 turns
-                if(callsController2 > 0 && TurnSystem.turnCounter%4 == 0)
-                SpawnTrees();
+                //Spawn one tree every 4 turns
+                if (callsController2 > 0 && TurnSystem.turnCounter % 4 == 2)
+                {
+                    if (TurnSystem.turnCounter > 5)
+                    {
+                        SpawnTrees2();
+                    }
+                    TreePositionIndicator();
+                }
+                    
+                else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
+                    SpawnTrees();
                 callsController2--;
             }
         }
@@ -76,6 +89,11 @@ public class NatureScript : MonoBehaviour
     {
         listOfPosition.Add(position);
         
+    }
+    public void addToEmptiedHexes(GameObject element)
+    {
+        emptiedHexes.Add(element);
+
     }
 
     public List<Vector3> getListOfPosition()
@@ -95,9 +113,31 @@ public class NatureScript : MonoBehaviour
                 Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
                 hexTreePrefab.tag = "hover";
                 listOfPosition.RemoveAt(currentPosition);
-            }
-            
+            }            
+        }
+    }
+
+    public void TreePositionIndicator()
+    {
+        if (listOfPosition.Count > 0)
+        {
+            int currentPosition = Random.Range(0, listOfPosition.Count);
+            treePosition = listOfPosition[currentPosition];
+            glowingHex = emptiedHexes[currentPosition];
+            glowingHex.GetComponent<TreeIndicator>().particle.Play();
+            listOfPosition.RemoveAt(currentPosition);
+            emptiedHexes.RemoveAt(currentPosition);
         }
 
+    }
+
+    public void SpawnTrees2()
+    {
+        if (treePosition != player.transform.position)
+        {
+            Instantiate(hexTreePrefab, treePosition, transform.rotation);
+            hexTreePrefab.tag = "hover";
+            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
+        }
     }
 }

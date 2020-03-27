@@ -10,7 +10,6 @@ public class UpgradeHouse : MonoBehaviour
     public GameObject newPlayerPrefab;
 
     public TurnSystem turnSystem;
-    //public TurnClass turnClass;
 
     GameObject player;
     EnterUpgradeHouse enter;
@@ -35,9 +34,7 @@ public class UpgradeHouse : MonoBehaviour
                 Resume();
             } 
         }
-    }
-
- 
+    } 
 
     void Resume()
     {
@@ -91,13 +88,10 @@ public class UpgradeHouse : MonoBehaviour
         if (currentWood >= 5)    //Number of woods needed for an upgrade
         {
             player.GetComponent<Player>().woodCount -= 5;
-            //oldPlayerPrefab = GameObject.Find("player");
-            Vector3 positionOfPrefab = player.transform.position; //  GameObject.Find("player").transform.position;
+            Vector3 positionOfPrefab = player.transform.position; 
 
             // Replace old prefab with the upgraded one
             int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.transform.position.Equals(positionOfPrefab));
-            //GameObject oldPrefab = player.GetComponent<GameObject>();
-            //Destroy(oldPrefab.gameObject);
             GameObject fire = Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             fire.name = "fire";
             turnSystem.playersGroup[indexInTurns].playerGameObject = fire;
@@ -114,14 +108,10 @@ public class UpgradeHouse : MonoBehaviour
         if (currentWood >= 5)    //Number of woods needed for an upgrade
         {
             player.GetComponent<Player>().woodCount -= 5;
-            //oldPlayerPrefab = GameObject.Find("player");
-            Vector3 positionOfPrefab = player.transform.position; //  GameObject.Find("player").transform.position;
+            Vector3 positionOfPrefab = player.transform.position; 
 
             // Replace old prefab with the upgraded one
-            //int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.transform.position.Equals(oldPlayerPrefab));
-            //Destroy(oldPlayerPrefab.gameObject);
             GameObject newLum = Instantiate(oldPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
-            //fire.name = "fire";
             TurnClass turnClass = new TurnClass();
             turnClass.playerGameObject = newLum;
             turnSystem.playersGroup.Add(turnClass);

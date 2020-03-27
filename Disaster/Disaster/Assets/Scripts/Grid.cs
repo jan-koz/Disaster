@@ -164,7 +164,7 @@ public class Grid : MonoBehaviour
                     transform.position = pos;
                     player = this.transform;
                     transform.position = pos2;
-                    player.name = "player";
+                    player.name = "Grid";
 
                     // player.name = "Hexagon" + x + "|" + y;
 
