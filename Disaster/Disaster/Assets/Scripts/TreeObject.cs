@@ -9,13 +9,18 @@ public class TreeObject : MonoBehaviour
     public GameObject scorched;
     private Vector3 position;
     public static int countDestroedTrees;
+    private static int currentFireHexAmount; // tutaj trzeba będzie zliczyć ile jest serio prefabów na scenie ale na razie napiszę jakąś liczbe
     private GameObject nature;
+    [HideInInspector]
+    public DamageBar damage;
 
     private void Start()
     {
         //player = FindObjectOfType<Player>();
         countDestroedTrees = 0;
+        currentFireHexAmount = 0;
         nature = GameObject.Find("Nature");
+        damage = FindObjectOfType<DamageBar>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,6 +52,8 @@ public class TreeObject : MonoBehaviour
             Vector3 positionOfThis = this.transform.position;
             Instantiate(scorched, positionOfThis, transform.rotation * Quaternion.Euler(0f, -180f, 0f));
             Destroy(this.gameObject);
+            currentFireHexAmount++;
+            damage.SetDamage(currentFireHexAmount);
         } 
 
         else { Debug.Log("No jump"); }
