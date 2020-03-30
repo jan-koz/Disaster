@@ -60,7 +60,7 @@ public class Grid : MonoBehaviour
 
         if (check)
         {
-            if (GameObject.Find("player").GetComponent<Player>().maxWood == GameObject.Find("player").GetComponent<Player>().woodCount)
+            if (GameObject.Find("PlayerPrefab(Clone)").GetComponent<Player>().getMaxWood() == GameObject.Find("PlayerPrefab(Clone)").GetComponent<Player>().getMaxWood())
             {   
                 image2.SetActive(true);
                 StartCoroutine(WaitForInstruction(image2));

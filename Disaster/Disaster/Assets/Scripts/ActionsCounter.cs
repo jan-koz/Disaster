@@ -12,6 +12,7 @@ public class ActionsCounter : MonoBehaviour
     {
         if(!turnSystem.playersGroup[0].isTurn)
         {
+            //Debug.Log("Ma ture: " + turnSystem.playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.ToString());
             Player player = turnSystem.playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.GetComponent<Player>();
             textMeshW.text = "Actions: " + player.avaliableActions().ToString() + "/" + player.maxActions;
         }

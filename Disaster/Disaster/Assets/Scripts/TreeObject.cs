@@ -28,7 +28,7 @@ public class TreeObject : MonoBehaviour
         Player player = other.GetComponent<Player>();
 
         if (other.gameObject.tag == "Player" && this.tag == "hover"
-            && player.woodCount != player.maxWood && player.avaliableActions() >= 2)
+            && player.woodCount != player.maxWood && player.avaliableActions() >= 1)
         {
             Debug.Log("jump");
             player.woodCount += 1;

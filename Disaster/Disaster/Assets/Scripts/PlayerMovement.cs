@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform playerPrefab;
     public Grid gridMeasures;
     Vector3 newPosition;
+    string hitTag;
     Vector3 playerPositon;
 
     // turn based system
@@ -38,9 +39,17 @@ public class PlayerMovement : MonoBehaviour
         isTurn = turnClass.isTurn;
         if (isTurn)
         {
-            if (player.avaliableActions() > 0)
+            if (player.avaliableActions() > 0) //&& (getClickedTile() != "hover" && player.GetWoodCount() != player.getMaxWood()))
             {
-                Move();
+                if((getClickedTile() == "hover" && player.GetWoodCount() == player.getMaxWood()) /*|| (getClickedTile() == "hover" && player.getActions() == 1)*/)
+                {
+                    Debug.Log("Nie powinno Cie tu byc");
+                }
+                else
+                {
+                    Move();
+                    Debug.Log("You've jumped on: " + getClickedTile());
+                }
             }
             else
             {
@@ -51,6 +60,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+    }
+    private string getClickedTile()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                hitTag = hit.collider.gameObject.tag;
+            }
+        }
+        return hitTag;
     }
 
     private void Move()
@@ -65,20 +88,22 @@ public class PlayerMovement : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     newPosition = hit.collider.gameObject.transform.position;
+                    
                     float newX = Mathf.Abs(newPosition.x - playerPositon.x);
                     float newZ = Mathf.Abs(newPosition.z - playerPositon.z);
                     Debug.Log(newX);
                     Debug.Log(newZ);
 
-                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f)
+                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f && newPosition != playerPositon)
                     {
-                        Vector3 pos = newPosition;
-                        pos.y = 0.5f;
-                        transform.position = pos;
-                        player.countActions();
+                           // Debug.Log("Hit tag: " + hitTag);
+                            Vector3 pos = newPosition;
+                            pos.y = 0.5f;
+                            transform.position = pos;
+                            player.countActions();
                     }
                 }
             }
         }
     }
-}
+    }
