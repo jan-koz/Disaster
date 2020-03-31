@@ -33,10 +33,13 @@ public class PlayerMovement : MonoBehaviour
             if(Physics.Raycast(ray,out hit))
             {
                 newPosition = hit.collider.gameObject.transform.position;
+                Debug.Log(newPosition.x);
+                Debug.Log(newPosition.z);
                 float newX = Mathf.Abs(newPosition.x - playerPositon.x);
                 float newZ = Mathf.Abs(newPosition.z - playerPositon.z);
-                Debug.Log(newX);
-                Debug.Log(newZ);
+
+                //Debug.Log(newX);
+                //Debug.Log(newZ);
 
                 if(newX <= gridMeasures.hexWidth || newZ <= gridMeasures.hexHeight)
                 {
