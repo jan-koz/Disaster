@@ -93,14 +93,17 @@ public class PlayerMovement : MonoBehaviour
                     float newZ = Mathf.Abs(newPosition.z - playerPositon.z);
                     Debug.Log(newX);
                     Debug.Log(newZ);
-
+                    
                     if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f && newPosition != playerPositon)
                     {
                            // Debug.Log("Hit tag: " + hitTag);
-                            Vector3 pos = newPosition;
-                            pos.y = 0.5f;
+                        Vector3 pos = newPosition;
+                        pos.y = 0.5f;
+                        if(pos != transform.position)
+                        {
                             transform.position = pos;
                             player.countActions();
+                        }
                     }
                 }
             }
