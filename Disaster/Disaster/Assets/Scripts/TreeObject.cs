@@ -9,7 +9,7 @@ public class TreeObject : MonoBehaviour
     public GameObject scorched;
     private Vector3 position;
     public static int countDestroedTrees;
-    private static int currentFireHexAmount; // tutaj trzeba będzie zliczyć ile jest serio prefabów na scenie ale na razie napiszę jakąś liczbe
+    public static float currentFireHexAmount; // tutaj trzeba będzie zliczyć ile jest serio prefabów na scenie ale na razie napiszę jakąś liczbe
     private GameObject nature;
     [HideInInspector]
     public DamageBar damage;

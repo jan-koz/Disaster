@@ -9,6 +9,7 @@ TagManager:
   - button
   - PlayerFire
   - Enemy
+  - cley
   layers:
   - Default
   - TransparentFX

@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform playerPrefab;
-    public Grid gridMeasures;
+    public float hexWidth = 0.8f;
+    public float hexHeight = 1.0f;
     Vector3 newPosition;
     string hitTag;
     Vector3 playerPositon;
@@ -24,9 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         player = this.GetComponentInParent<Player>();
         newPosition = transform.position;
-        gridMeasures = FindObjectOfType<Grid>();
-        Debug.Log(gridMeasures.hexWidth);
-        Debug.Log(gridMeasures.hexHeight);
         active.SetActive(false);
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
 
@@ -98,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log(newX);
                     Debug.Log(newZ);
                     
-                    if (newX <= gridMeasures.hexWidth + 0.1f && newZ <= gridMeasures.hexHeight + 0.1f && newPosition != playerPositon)
+                    if (newX <= hexWidth + 2.1f && newZ <= hexHeight + 2.1f && newPosition != playerPositon)
                     {
                            // Debug.Log("Hit tag: " + hitTag);
                         Vector3 pos = newPosition;

@@ -19,7 +19,7 @@ public class UpgradeHouse : MonoBehaviour
 
     private void Start()
     {
-        enter = GameObject.Find("HousePrefab(Clone)").GetComponentInParent<EnterUpgradeHouse>();
+        enter = GameObject.Find("HousePrefab").GetComponentInParent<EnterUpgradeHouse>();
        
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
     }

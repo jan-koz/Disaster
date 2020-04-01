@@ -5,40 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    private GameObject player;
-    private GameObject fire;
-    private GameObject enemy;
-
-
-    private Grid grid;
-    void Start()
+    public void OnTriggerEnter(Collider other)
     {
-        grid = FindObjectOfType<Grid>();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        player = GameObject.Find("PlayerPrefab(Clone)");
-        fire = GameObject.Find("PlayerPrefabFire(Clone)");
-        enemy = GameObject.Find("enemy");
-        CheckPosition();
-    }
-
-    public void CheckPosition()
-    {
-        if (enemy != null)
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "PlayerFire")
         {
-            if (player.transform.position.x == enemy.transform.position.x && player.transform.position.z == enemy.transform.position.z)
-            {
-                SceneManager.LoadScene("Pokemon", LoadSceneMode.Single);
-            }
-            if (fire != null)
-            {
-                if (fire.transform.position.x == enemy.transform.position.x && fire.transform.position.z == enemy.transform.position.z)
-                    SceneManager.LoadScene("Pokemon", LoadSceneMode.Single);
-            }
+            Debug.Log("jazda");
+            SceneManager.LoadScene("Pokemon", LoadSceneMode.Single);
         }
     }
 }

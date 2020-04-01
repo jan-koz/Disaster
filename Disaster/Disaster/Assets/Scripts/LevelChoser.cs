@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class LevelChoser : MonoBehaviour
 {
-    public static bool lvl1beaten = false;
-    public static bool lvl2beaten = false;
     public Button button1;
     public Button button2;
     public Button button3;
@@ -23,12 +21,12 @@ public class LevelChoser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lvl1beaten)
+        if (BoolStorage.lvl1beaten)
         {
             button2.interactable = true;
             slider.value = slider.maxValue / 3;
         }
-        else if (lvl2beaten)
+        else if (BoolStorage.lvl2beaten)
         {
             button3.interactable = true;
             slider.value = slider.maxValue * 2 / 3;
@@ -42,7 +40,7 @@ public class LevelChoser : MonoBehaviour
 
     public void On2LvlButtonClick()
     {
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Lvl2", LoadSceneMode.Single);
     }
 
     public void On3LvlButtonClick()

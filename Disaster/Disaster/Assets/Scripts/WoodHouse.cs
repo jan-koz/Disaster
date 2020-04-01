@@ -15,7 +15,7 @@ public class WoodHouse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enter = GameObject.Find("WoodHousePrefab(Clone)").GetComponent<EnterWoodHouse>();
+        enter = GameObject.Find("WoodHousePrefab").GetComponent<EnterWoodHouse>();
     }
 
     // Update is called once per frame

@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: -7710429044176625610}
   - component: {fileID: 2669977272963866329}
   - component: {fileID: 7993109022220570717}
-  - component: {fileID: 3859785716063386012}
   - component: {fileID: -2033087130339534854}
   m_Layer: 0
   m_Name: HexTile_Pasture
-  m_TagString: Untagged
+  m_TagString: hover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,18 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 644862125854961239}
   scorched: {fileID: 1411991481385686, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
---- !u!114 &3859785716063386012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388657164994780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a81aabee283f484fa1fc178a4c5ecbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  damage: {fileID: 0}
 --- !u!114 &-2033087130339534854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 0}
   scorched: {fileID: 0}
+  damage: {fileID: 0}
 --- !u!54 &1751443185385912249
 Rigidbody:
   m_ObjectHideFlags: 0

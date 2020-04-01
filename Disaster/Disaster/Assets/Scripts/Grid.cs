@@ -47,7 +47,6 @@ public class Grid : MonoBehaviour
         
         if (TreeObject.countDestroedTrees > Enemy.maxCollectedWoodEnt && !hasSpawned)
         {
-            CreateEnemy();
             TreeObject.countDestroedTrees = 0;
             if (check2)
             {
@@ -117,31 +116,6 @@ public class Grid : MonoBehaviour
         }
     }
 
-    void CreateEnemy()
-    {
-        for (int y = 0; y < gridHeight; y++)
-        {
-            for (int x = 0; x < gridWidth; x++)
-            {
-                Vector2 gridPos = new Vector2(x, y);
-
-                if (x == 1 && y == 0)
-                {
-                    Transform enemy = Instantiate(enemyPrefab) as Transform;
-                    hasSpawned = true;
-                    enemy.position = CalcWorldPos(gridPos);
-                    Vector3 pos = transform.position;
-                    Vector3 pos2 = transform.position;
-                    pos.y = 1.5f;
-                    transform.position = pos;
-                    enemy.parent = this.transform;
-                    transform.position = pos2;
-                    enemy.name = "enemy";
-                }
-            }
-        }
-
-    }
     void CreateGrid()
     {
         for (int y = 0; y < gridHeight; y++)
