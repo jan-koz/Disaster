@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     Player player;
 
+    public GameObject active;
+
     private void Start()
     {
         player = this.GetComponentInParent<Player>();
@@ -25,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         gridMeasures = FindObjectOfType<Grid>();
         Debug.Log(gridMeasures.hexWidth);
         Debug.Log(gridMeasures.hexHeight);
-
+        active.SetActive(false);
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
 
         foreach (TurnClass tc in turnSystem.playersGroup)
@@ -38,10 +40,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isTurn = turnClass.isTurn;
         if (isTurn)
-        {
+        {            
             if (player.avaliableActions() > 0) //&& (getClickedTile() != "hover" && player.GetWoodCount() != player.getMaxWood()))
             {
-                if((getClickedTile() == "hover" && player.GetWoodCount() == player.getMaxWood()) /*|| (getClickedTile() == "hover" && player.getActions() == 1)*/)
+                active.SetActive(true);
+                if ((getClickedTile() == "hover" && player.GetWoodCount() == player.getMaxWood()) /*|| (getClickedTile() == "hover" && player.getActions() == 1)*/)
                 {
                     Debug.Log("Nie powinno Cie tu byc");
                 }
@@ -54,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 isTurn = false;
+                active.SetActive(false);
                 turnClass.isTurn = isTurn;
                 turnClass.wasTurnPrev = true;
                 player.actionsCount = 0;
