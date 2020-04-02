@@ -136,9 +136,9 @@ public class NatureScript : MonoBehaviour
     {
         if (treePosition != null && treePosition != player.transform.position)
         {
+            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
             Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
             hexTreePrefab.tag = "hover";
-            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
             treePosition = null;
         }
     }
