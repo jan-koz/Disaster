@@ -6,20 +6,21 @@ public class CameraController : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public Transform playerPrefab;
     public Vector3 offset;
-    Player target;
-    //how close we need to get to the endge of the screen to move
+    TurnSystem turnSystem;
     public Vector2 cameraLimit;
+    private Vector3 testPlayerPosition;
 
     private void Start()
     {
-        target = GameObject.FindObjectOfType<Player>();
+        turnSystem = GameObject.FindObjectOfType<TurnSystem>();
     }
-    // Update is called once per frame
+
+
     void Update()
     {
         // current position of our camera
         Vector3 pos = transform.position;
-        if(Input.GetKey("w"))
+        if (Input.GetKey("w"))
         {
             pos.z += cameraSpeed * Time.deltaTime;
         }
@@ -49,8 +50,8 @@ public class CameraController : MonoBehaviour
 
     public void FindPlayer()
     {
-        Vector3  desiredPosition = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z) + offset;
-        //Vector3 smoothPosition = Vector3.Lerp(transform.position,desiredPosition,smoothSpeed*Time.deltaTime);
+        testPlayerPosition = turnSystem.playersGroup.Find(turnClass => turnClass.isTurn).playerGameObject.transform.position;
+        Vector3 desiredPosition = new Vector3(testPlayerPosition.x, testPlayerPosition.y, testPlayerPosition.z) + offset;
 
         transform.position = desiredPosition;
 
