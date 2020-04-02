@@ -70,8 +70,8 @@ public class NatureScript : MonoBehaviour
                     TreePositionIndicator();
                 }
                     
-                //else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
-                    //SpawnTrees();
+                else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
+                    SpawnTrees();
                 callsController2--;
             }
         }
@@ -113,6 +113,7 @@ public class NatureScript : MonoBehaviour
                 Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
                 hexTreePrefab.tag = "hover";
                 listOfPosition.RemoveAt(currentPosition);
+                emptiedHexes.RemoveAt(currentPosition);
             }            
         }
     }

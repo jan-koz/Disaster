@@ -92,8 +92,12 @@ public class UpgradeHouse : MonoBehaviour
 
             // Replace old prefab with the upgraded one
             int indexInTurns = turnSystem.playersGroup.FindIndex(turnClass => turnClass.playerGameObject.transform.position.Equals(positionOfPrefab));
+            int actions = player.GetComponent<Player>().maxActions;
+            int wood = player.GetComponent<Player>().maxWood;
             GameObject fire = Instantiate(newPlayerPrefab, positionOfPrefab, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             fire.name = "fire";
+            fire.GetComponent<Player>().maxActions = actions;
+            fire.GetComponent<Player>().maxWood = wood;
             turnSystem.playersGroup[indexInTurns].playerGameObject = fire;
             player.SetActive(false);
 
