@@ -7,7 +7,7 @@ public class NatureScript : MonoBehaviour
     public Transform hexTreePrefab;
     private List<Vector3> listOfPosition = new List<Vector3>();
     private List<GameObject> emptiedHexes = new List<GameObject>();
-    Vector3 treePosition;
+    System.Nullable<Vector3> treePosition;
     GameObject glowingHex;
 
     TurnSystem turnSystem;
@@ -70,8 +70,8 @@ public class NatureScript : MonoBehaviour
                     TreePositionIndicator();
                 }
                     
-                else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
-                    SpawnTrees();
+                //else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
+                    //SpawnTrees();
                 callsController2--;
             }
         }
@@ -133,11 +133,12 @@ public class NatureScript : MonoBehaviour
 
     public void SpawnTrees2()
     {
-        if (treePosition != player.transform.position)
+        if (treePosition != null && treePosition != player.transform.position)
         {
-            Instantiate(hexTreePrefab, treePosition, transform.rotation);
+            Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
             hexTreePrefab.tag = "hover";
             glowingHex.GetComponent<TreeIndicator>().particle.Stop();
+            treePosition = null;
         }
     }
 }
