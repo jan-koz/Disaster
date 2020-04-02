@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log(newX);
                     Debug.Log(newZ);
                     
-                    if (newX <= hexWidth + 2.1f && newZ <= hexHeight + 2.1f && newPosition != playerPositon)
+                    if (newX <= hexWidth + 0.0f && newZ <= hexHeight + 0.0f && newPosition != playerPositon)
                     {
                            // Debug.Log("Hit tag: " + hitTag);
                         Vector3 pos = newPosition;
