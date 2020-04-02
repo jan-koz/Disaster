@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform playerPrefab;
-    public float hexWidth = 0.8f;
-    public float hexHeight = 1.0f;
+    public float hexWidth = 0.0f;
+    public float hexHeight = 0.0f;
     Vector3 newPosition;
     string hitTag;
     Vector3 playerPositon;

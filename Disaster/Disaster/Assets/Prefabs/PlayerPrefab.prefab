@@ -114,9 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6989049019350369739}
-  gridMeasures: {fileID: 0}
-  hexWidth: 2
-  hexHeight: 2
+  hexWidth: 1.1
+  hexHeight: 1
   turnSystem: {fileID: 0}
   turnClass:
     playerGameObject: {fileID: 3836594151192544131}
