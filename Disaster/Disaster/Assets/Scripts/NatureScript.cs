@@ -14,7 +14,7 @@ public class NatureScript : MonoBehaviour
     public TurnClass turnClass;
     public bool isTurn = false;
     private bool once = false;
-    private GameObject enemyPrefab;
+    public GameObject enemyPrefab;
     Player player;
     private int callsController = 0;
     private int callsController2 = 1;
@@ -38,7 +38,7 @@ public class NatureScript : MonoBehaviour
     
     private void Update()
     {
-        enemyPrefab = GameObject.Find("Grid/EnemyPrefab(Clone)");
+        enemyPrefab = GameObject.Find("enemy");
         isTurn = turnClass.isTurn;
         if(isTurn == false)
         {
@@ -58,22 +58,17 @@ public class NatureScript : MonoBehaviour
                     callsController--;
                 }
                 
-            } else
-            {
-                //Spawn one tree every 4 turns
-                if (callsController2 > 0 && TurnSystem.turnCounter % 4 == 2)
-                {
-                    if (TurnSystem.turnCounter > 5)
-                    {
-                        SpawnTrees2();
-                    }
-                    TreePositionIndicator();
-                }
-                    
-                else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
-                    SpawnTrees();
-                callsController2--;
             }
+            //Spawn one tree every 4 turns
+            if (callsController2 > 0 && TurnSystem.turnCounter % 4 == 2)
+            {
+                if (TurnSystem.turnCounter > 5)
+                {
+                    SpawnTrees2();
+                }
+                TreePositionIndicator();
+            }
+            callsController2--;
         }
 
     }
@@ -108,7 +103,7 @@ public class NatureScript : MonoBehaviour
         {
             int currentPosition = Random.Range(0, listOfPosition.Count);
             Vector3 randomTreePosition = listOfPosition[currentPosition];
-            if(randomTreePosition != player.transform.position)
+            if(randomTreePosition.x != player.transform.position.x && randomTreePosition.z != player.transform.position.z)
             {
                 Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
                 hexTreePrefab.tag = "hover";
@@ -134,12 +129,16 @@ public class NatureScript : MonoBehaviour
 
     public void SpawnTrees2()
     {
-        if (treePosition != null && treePosition != player.transform.position)
+        if (treePosition != null)
         {
             glowingHex.GetComponent<TreeIndicator>().particle.Stop();
-            Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
-            hexTreePrefab.tag = "hover";
-            treePosition = null;
+            Vector3 treePos = (Vector3)treePosition;
+            if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
+            {
+                Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
+                hexTreePrefab.tag = "hover";
+                treePosition = null;
+            }
         }
     }
 }
