@@ -11,9 +11,10 @@ public class TreeObject : MonoBehaviour
     public static int countDestroedTrees;
     public static float currentFireHexAmount = 0; // tutaj trzeba będzie zliczyć ile jest serio prefabów na scenie ale na razie napiszę jakąś liczbe
     private GameObject nature;
+    public static List<GameObject> tiles = new List<GameObject>();
     [HideInInspector]
     public DamageBar damage;
-
+    public GameObject test;
     private void Start()
     {
         //player = FindObjectOfType<Player>();
@@ -31,8 +32,7 @@ public class TreeObject : MonoBehaviour
         {
             Debug.Log("jump");
             player.woodCount += 1;
-            player.actionsCount++; //adding extra action when cutting a tree
-            //List that stores position of cut trees
+            player.actionsCount++; 
             position = tree.transform.position;
             nature.GetComponent<NatureScript>().addPositionToList(position);
             nature.GetComponent<NatureScript>().addToEmptiedHexes(this.gameObject);
@@ -40,11 +40,12 @@ public class TreeObject : MonoBehaviour
             Destroy(tree);
             countDestroedTrees++;
             this.tag = "Untagged";
-        } 
+            tiles.Add(this.gameObject);
+        }
 
         //checking if prefab of player changed and if so changing the ground to scorched
         else if (other.gameObject.tag == "PlayerFire" && this.tag == "hover"
-            && player.woodCount != player.maxWood && player.avaliableActions() >= 2) 
+            && player.woodCount != player.maxWood && player.avaliableActions() >= 2)
         {
             player.woodCount += 1;
             player.actionsCount++;
@@ -53,7 +54,7 @@ public class TreeObject : MonoBehaviour
             Destroy(this.gameObject);
             currentFireHexAmount++;
             damage.SetDamage(currentFireHexAmount);
-        } 
+        }
 
         else { Debug.Log("No jump"); }
     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4517481239121561200}
   m_Layer: 0
   m_Name: Tree
-  m_TagString: hover
+  m_TagString: toRespawnHover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   tree: {fileID: 4235710350704870138}
   scorched: {fileID: 1411991481385686, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
   damage: {fileID: 0}
+  test: {fileID: 0}
 --- !u!54 &4517481239121561200
 Rigidbody:
   m_ObjectHideFlags: 0

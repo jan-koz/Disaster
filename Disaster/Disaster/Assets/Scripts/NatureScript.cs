@@ -7,6 +7,7 @@ public class NatureScript : MonoBehaviour
     public Transform hexTreePrefab;
     private List<Vector3> listOfPosition = new List<Vector3>();
     private List<GameObject> emptiedHexes = new List<GameObject>();
+
     System.Nullable<Vector3> treePosition;
     GameObject glowingHex;
 
@@ -18,13 +19,15 @@ public class NatureScript : MonoBehaviour
     Player player;
     private int callsController = 0;
     private int callsController2 = 1;
-    
+    bool kurwa;
 
 
     private void Start()
     {
         player = FindObjectOfType<Player>();
         turnSystem = GameObject.Find("TurnBasedSystem").GetComponent<TurnSystem>();
+        kurwa = false;
+
         foreach (TurnClass tc in turnSystem.playersGroup)
         {
             if (tc.playerGameObject.name == gameObject.name)
@@ -33,20 +36,20 @@ public class NatureScript : MonoBehaviour
             }
         }
     }
- 
-        
-    
+
+
+
     private void Update()
     {
         enemyPrefab = GameObject.Find("Grid/EnemyPrefab(Clone)");
         isTurn = turnClass.isTurn;
-        if(isTurn == false)
+        if (isTurn == false)
         {
             //To change number of spawned trees change these values
-            callsController = Random.Range(1, listOfPosition.Count - 1);
+            callsController = Random.Range(1, TreeObject.tiles.Count - 1);
             callsController2 = 1;
         }
-        if(isTurn)
+        if (isTurn)
         {
             StartCoroutine("RespawnTrees");
             //Enemy spawns random number of trees (when he exists)
@@ -57,8 +60,9 @@ public class NatureScript : MonoBehaviour
                     SpawnTrees();
                     callsController--;
                 }
-                
-            } else
+
+            }
+            else
             {
                 //Spawn one tree every 4 turns
                 if (callsController2 > 0 && TurnSystem.turnCounter % 4 == 2)
@@ -69,13 +73,21 @@ public class NatureScript : MonoBehaviour
                     }
                     TreePositionIndicator();
                 }
-                    
-                else if (callsController2 > 0 && TurnSystem.turnCounter%4 == 1)
+
+                else if (callsController2 > 0 && TurnSystem.turnCounter % 4 == 1)
                     SpawnTrees();
                 callsController2--;
             }
         }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("KURWWWWWWWWWWWWWWWW: " + hexTreePrefab.tag);
+        if (other.gameObject.tag == "Player"  && hexTreePrefab.tag == "toRespawnHover")
+        {
+            Destroy(hexTreePrefab);
+        }
     }
 
     public IEnumerator RespawnTrees()
@@ -88,7 +100,7 @@ public class NatureScript : MonoBehaviour
     public void addPositionToList(Vector3 position)
     {
         listOfPosition.Add(position);
-        
+
     }
     public void addToEmptiedHexes(GameObject element)
     {
@@ -104,29 +116,32 @@ public class NatureScript : MonoBehaviour
     //Spawning trees at random positions
     public void SpawnTrees()
     {
-        if (listOfPosition.Count > 0) 
+        if (TreeObject.tiles.Count > 0)
         {
-            int currentPosition = Random.Range(0, listOfPosition.Count);
-            Vector3 randomTreePosition = listOfPosition[currentPosition];
-            if(randomTreePosition != player.transform.position)
+            int currentPosition = Random.Range(0, TreeObject.tiles.Count);
+            Vector3 randomTreePosition = TreeObject.tiles[currentPosition].transform.position;
+            if (randomTreePosition != player.transform.position)
             {
+                randomTreePosition.y = 0.6f;
                 Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
-                hexTreePrefab.tag = "hover";
-                listOfPosition.RemoveAt(currentPosition);
+                hexTreePrefab.tag = "toRespawnHover";
+                Debug.Log("THISSSS TAG: "+ this.tag);
+                TreeObject.tiles[currentPosition].tag = "hover";
+                TreeObject.tiles.RemoveAt(currentPosition);
                 emptiedHexes.RemoveAt(currentPosition);
-            }            
+            }
         }
     }
 
     public void TreePositionIndicator()
     {
-        if (listOfPosition.Count > 0)
+        if (TreeObject.tiles.Count > 0)
         {
-            int currentPosition = Random.Range(0, listOfPosition.Count);
-            treePosition = listOfPosition[currentPosition];
+            int currentPosition = Random.Range(0, TreeObject.tiles.Count);
+            treePosition = TreeObject.tiles[currentPosition].transform.position;
             glowingHex = emptiedHexes[currentPosition];
             glowingHex.GetComponent<TreeIndicator>().particle.Play();
-            listOfPosition.RemoveAt(currentPosition);
+            TreeObject.tiles.RemoveAt(currentPosition);
             emptiedHexes.RemoveAt(currentPosition);
         }
 
@@ -136,10 +151,23 @@ public class NatureScript : MonoBehaviour
     {
         if (treePosition != null && treePosition != player.transform.position)
         {
-            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
             Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
-            hexTreePrefab.tag = "hover";
+            for (int i = 0; i < TreeObject.tiles.Count; i++)
+            {
+                Debug.Log("Tell me the truth pls: " + Vector3.Distance(TreeObject.tiles[i].transform.position, hexTreePrefab.transform.position));
+                if (Vector3.Distance(TreeObject.tiles[i].transform.position, hexTreePrefab.transform.position) < 3.1)
+                {
+                    Debug.Log("INDA LOOP MUDAFCKA");
+                    TreeObject.tiles[i].tag = "hover";
+                    break;
+                }
+            }
+            hexTreePrefab.tag = "toRespawnHover";
+            Debug.Log("NEW HEX TAG: " + hexTreePrefab.tag);
+            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
             treePosition = null;
         }
     }
+
+    
 }
