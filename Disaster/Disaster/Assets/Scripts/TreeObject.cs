@@ -49,8 +49,9 @@ public class TreeObject : MonoBehaviour
         {
             player.woodCount += 1;
             player.actionsCount++;
-            Vector3 positionOfThis = this.transform.position;
-            Instantiate(scorched, positionOfThis, transform.rotation * Quaternion.Euler(0f, -180f, 0f));
+            Vector3 positionOfThis = tree.transform.parent.position;
+            Destroy(tree.transform.parent.gameObject);
+            Instantiate(scorched, positionOfThis, tree.transform.rotation * Quaternion.Euler(0f, -90f, 0f));
             Destroy(this.gameObject);
             currentFireHexAmount++;
             damage.SetDamage(currentFireHexAmount);
