@@ -48,7 +48,6 @@ public class NatureScript : MonoBehaviour
         }
         if(isTurn)
         {
-            StartCoroutine("RespawnTrees");
             //Enemy spawns random number of trees (when he exists)
             if (enemyPrefab != null)
             {
@@ -67,8 +66,9 @@ public class NatureScript : MonoBehaviour
                     SpawnTrees2();
                 }
                 TreePositionIndicator();
+                callsController2--;
             }
-            callsController2--;
+            StartCoroutine("RespawnTrees");
         }
 
     }
@@ -105,7 +105,8 @@ public class NatureScript : MonoBehaviour
             Vector3 randomTreePosition = listOfPosition[currentPosition];
             if(randomTreePosition.x != player.transform.position.x && randomTreePosition.z != player.transform.position.z)
             {
-                Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
+                Transform treeTrans = Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
+                treeTrans.parent = emptiedHexes[currentPosition].transform;
                 hexTreePrefab.tag = "hover";
                 listOfPosition.RemoveAt(currentPosition);
                 emptiedHexes.RemoveAt(currentPosition);
@@ -135,7 +136,8 @@ public class NatureScript : MonoBehaviour
             Vector3 treePos = (Vector3)treePosition;
             if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
             {
-                Instantiate(hexTreePrefab, (Vector3)treePosition, transform.rotation);
+                Transform treeTrans = Instantiate(hexTreePrefab, treePos, transform.rotation);
+                treeTrans.parent = glowingHex.transform;
                 hexTreePrefab.tag = "hover";
                 treePosition = null;
             }
