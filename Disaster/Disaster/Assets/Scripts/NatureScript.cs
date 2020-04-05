@@ -106,10 +106,18 @@ public class NatureScript : MonoBehaviour
             if(randomTreePosition.x != player.transform.position.x && randomTreePosition.z != player.transform.position.z)
             {
                 Transform treeTrans = Instantiate(hexTreePrefab, randomTreePosition, transform.rotation);
-                treeTrans.parent = emptiedHexes[currentPosition].transform;
-                hexTreePrefab.tag = "hover";
-                listOfPosition.RemoveAt(currentPosition);
-                emptiedHexes.RemoveAt(currentPosition);
+                if (emptiedHexes[currentPosition] != null)
+                {
+                    treeTrans.parent = emptiedHexes[currentPosition].transform;
+                    hexTreePrefab.tag = "hover";
+                    listOfPosition.RemoveAt(currentPosition);
+                    emptiedHexes.RemoveAt(currentPosition);
+                }
+                else
+                {
+                    Debug.Log("Blad");
+                }
+
             }            
         }
     }
@@ -132,14 +140,18 @@ public class NatureScript : MonoBehaviour
     {
         if (treePosition != null)
         {
-            glowingHex.GetComponent<TreeIndicator>().particle.Stop();
-            Vector3 treePos = (Vector3)treePosition;
-            if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
+            if (glowingHex != null)
             {
-                Transform treeTrans = Instantiate(hexTreePrefab, treePos, transform.rotation);
-                treeTrans.parent = glowingHex.transform;
-                hexTreePrefab.tag = "hover";
-                treePosition = null;
+                glowingHex.GetComponent<TreeIndicator>().particle.Stop();
+
+                Vector3 treePos = (Vector3)treePosition;
+                if (treePos.x != player.transform.position.x && treePos.z != player.transform.position.z)
+                {
+                    Transform treeTrans = Instantiate(hexTreePrefab, treePos, transform.rotation);
+                    treeTrans.parent = glowingHex.transform;
+                    hexTreePrefab.tag = "hover";
+                    treePosition = null;
+                }
             }
         }
     }

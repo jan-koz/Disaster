@@ -5,22 +5,41 @@ using UnityEngine;
 public class EnableMonopolyGuy : MonoBehaviour
 {
     public GameObject sprite;
+    public GameObject sprite2;
+    public GameObject sprite3;
+    public GameObject sprite4;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(showSprite());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
+        StartCoroutine(showSprite());
     }
 
     IEnumerator showSprite()
     {
-        yield return new WaitForSeconds(5); //However many seconds you want
-        sprite.GetComponent<SpriteRenderer>().enabled = !sprite.GetComponent<SpriteRenderer>().enabled; //This toggles it
-        //StartCoroutine(StartBlinking());
+        yield return new WaitForSeconds(4); //However many seconds you want
+        sprite.SetActive(false);
+        sprite2.SetActive(true);
+        
+        if(sprite2 != null)
+        {
+            yield return new WaitForSeconds(4); //However many seconds you want
+            sprite2.SetActive(false);
+            sprite3.SetActive(true);
+        }
+
+        if(sprite3 != null)
+        {
+            yield return new WaitForSeconds(4); //However many seconds you want
+            sprite3.SetActive(false);
+            sprite4.SetActive(true);
+        }
+
+        if (sprite4 != null)
+        {
+            yield return new WaitForSeconds(4); //However many seconds you want
+            sprite4.SetActive(false);
+        }
+
     }
 }
